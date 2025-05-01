@@ -12,3 +12,16 @@ alt="Creative Commons License" style="border-width:0"
 src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a>
 
 **NOTE: there is no warranty for these code.**
+
+## 安装项目中的可执行程序
+
+这个项目模仿 gopl.io 组织代码的方式，有多个可执行程序。
+
+通过 import path 安装项目中的可执行程序：
+
+```sh
+$ export GOPATH=$HOME/gobook # 选择工作目录
+$ go install github.com/wngtk/gopl-solutions/ch1/helloworld # 获取/编译/安装
+$ $GOPATH/bin/helloworld # 运行程序
+Hello, world!
+```
