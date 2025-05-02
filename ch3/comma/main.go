@@ -1,3 +1,5 @@
+// exercise 3.10
+
 // Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
 // License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
@@ -45,21 +47,19 @@ func comma2(s string) string {
 		return s
 	}
 
-	var buf *bytes.Buffer = bytes.NewBuffer(nil)
-
-	start, end := 0, n%3
-	if end == 0 {
-		end = 3
+	// Use a bytes.Buffer to build the string efficiently.
+	var buf bytes.Buffer
+	
+	start := n % 3
+	if start == 0 {
+		start = 3
 	}
 
-	for i := range (n + 2) / 3 {
-		if i > 0 {
-			fmt.Fprintf(buf, ",")
-		}
-		fmt.Fprintf(buf, "%s", s[start:end])
-		start = end
-		end += 3
-		end = min(end, n)
+	// Write the first part of the string (before the first comma).
+	fmt.Fprintf(&buf, "%s", s[:start])
+
+	for i := start; i + 3 <= n; i += 3 {
+		fmt.Fprintf(&buf, ",%s", s[i:i+3])
 	}
 
 	return buf.String()
