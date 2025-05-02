@@ -3,13 +3,12 @@ package popcount_test
 import (
 	"testing"
 
-	mypopcount "github.com/wngtk/gopl-solutions/ch2/popcount"
-	"gopl.io/ch2/popcount"
+	"github.com/wngtk/gopl-solutions/ch2/popcount"
 )
 
 func BenchmarkPopCountByAccumulate(b *testing.B) {
 	for b.Loop() {
-		mypopcount.PopCountByAccumulate(0x1234567890ABCDEF)
+		popcount.PopCountByAccumulate(0x1234567890ABCDEF)
 	}
 }
 
@@ -21,6 +20,6 @@ func BenchmarkPopCount(b *testing.B) {
 
 func BenchmarkPopCountByBitCount(b *testing.B) {
 	for b.Loop() {
-		mypopcount.PopCountByBitCount(0x1234567890ABCDEF)
+		popcount.PopCountByBitCount(0x1234567890ABCDEF)
 	}
 }
