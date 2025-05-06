@@ -1,6 +1,11 @@
 # Go Modules
 
+本文只是个人学习理解, Go 项目如何布局和如何使用 Go 模块参见:
+
+- [Organizing a Go module](https://go.dev/doc/modules/layout)
 - [Using Go Modules](https://go.dev/blog/using-go-modules)
+
+---
 
 > Go语言的代码通过包(package)组织,包类似于其它语言里的库(libraries)或者模块(modules)。一个包由位于单个目录下的一个或多个.go源代码文件组成, 目录定义包的作用。每个源文件都以一条 package 声明语句开始,这个例子里就是 package main, 表示该文件属于哪个包,紧跟着一系列导入(import)的包,之后是存储在这个文件里的程序语句。
 
@@ -47,7 +52,7 @@ hello/
 
 - https://go.dev/tour/basics/1
 
-可执行程序就是包 main，其他的包称为 non-main package。你的项目里面有多个 main 包就是有多个可执行程序，有多个非 main 的包就是有多个库。
+可执行程序就是包 main，其他的包称为 non-main package。你的项目里面有多个 main 包就是有多个可执行程序，有多个非 main 的包就是有多个库。创建一个包就是创建一个文件夹, 这个文件夹里面的 .go 文件组成这个包. 文件夹相对于 go.mod 的路径就是模块的导入路径.
 
 可执行程序可以使用 go install 来安装 main 包，`go install <import path>`。例如安装 gopl 书中的 helloworld 程序：
 
