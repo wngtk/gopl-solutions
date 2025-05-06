@@ -3,6 +3,7 @@
 本文只是个人学习理解, Go 项目如何布局和如何使用 Go 模块参见:
 
 - [Organizing a Go module](https://go.dev/doc/modules/layout)
+- [Simple Go project layout with modules](https://eli.thegreenplace.net/2019/simple-go-project-layout-with-modules/)
 - [Using Go Modules](https://go.dev/blog/using-go-modules)
 
 ---
