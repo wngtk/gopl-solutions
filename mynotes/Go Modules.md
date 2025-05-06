@@ -1,3 +1,7 @@
+# Go Modules
+
+- [Using Go Modules](https://go.dev/blog/using-go-modules)
+
 > Go语言的代码通过包(package)组织,包类似于其它语言里的库(libraries)或者模块(modules)。一个包由位于单个目录下的一个或多个.go源代码文件组成, 目录定义包的作用。每个源文件都以一条 package 声明语句开始,这个例子里就是 package main, 表示该文件属于哪个包,紧跟着一系列导入(import)的包,之后是存储在这个文件里的程序语句。
 
 main 包比较特殊。它定义了一个独立可执行的程序,而不是一个库。在 main 里的 main 函数也很特殊,它是整个程序执行时的入口
@@ -16,7 +20,7 @@ Go 语言的编译单元是 package，一次考虑一个包。Go 语言通过 im
 
 Module 在 Go 语言里面代表的是一个项目。一个项目就是一个 Go Module。Module 里面可以有很多的文件夹，每个文件夹都可以是一个 Package。
 
-文件夹下的 .go 文件的 package 必须是一样的。同一个文件夹下的 .go 文件组成了一个 Package。
+文件夹下的 .go 文件的 package 必须是一样的。同一个文件夹下的 .go 文件组成了一个 Package。不同文件夹下的 package 可以是一样的名字, 但仅仅是名字一样, 路径不一样, import path 就不一样, 就是不同的包.
 
 package main 代表可执行程序。一个项目可以创建多个可执行程序，在不同的文件夹下的 .go 文件声明 package main 就是声明这个包是一个可执行程序。
 
@@ -35,7 +39,7 @@ hello/
 
 `go mod init example.com/hello`
 
-`example/hello` 是 Module path，也是 import path
+`example.com/hello` 是 Module path，也是 import path
 
 ## 一个项目创建多个可执行文件/库
 
