@@ -23,6 +23,10 @@ func main() {
 	for _, link := range visit(nil, doc) {
 		fmt.Println(link)
 	}
+
+	for k, v := range countElements(make(map[string]int), doc) {
+		fmt.Printf("%10s%5d\n", k, v)
+	}
 }
 
 //!-main
@@ -50,6 +54,22 @@ func visit(links []string, n *html.Node) []string {
 }
 
 //!-visit
+
+func countElements(count map[string]int, n *html.Node) map[string]int {
+	if n.Type == html.ElementNode {
+		count[n.Data]++
+	}
+
+	if n.FirstChild != nil {
+		count = countElements(count, n.FirstChild)
+	}
+
+	if n.NextSibling != nil {
+		count = countElements(count, n.NextSibling)
+
+	}
+	return count
+}
 
 /*
 //!+html
