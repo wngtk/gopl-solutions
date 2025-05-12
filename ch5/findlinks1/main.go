@@ -9,7 +9,9 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
+	"strings"
 
 	"golang.org/x/net/html"
 )
@@ -27,6 +29,8 @@ func main() {
 	for k, v := range countElements(make(map[string]int), doc) {
 		fmt.Printf("%10s%5d\n", k, v)
 	}
+
+	allText(os.Stdout, doc)
 }
 
 //!-main
@@ -69,6 +73,28 @@ func countElements(count map[string]int, n *html.Node) map[string]int {
 
 	}
 	return count
+}
+
+func allText(out io.Writer, n *html.Node) {
+	if n.Type == html.ElementNode {
+		if n.Data == "style" || n.Data == "script" {
+			return
+		}
+	}
+
+	if n.Type == html.TextNode {
+		if strings.TrimSpace(n.Data) != "" {
+			fmt.Fprintf(out, "%s", n.Data)
+		}
+	}
+
+	if n.FirstChild != nil {
+		allText(out, n.FirstChild)
+	}
+
+	if n.NextSibling != nil {
+		allText(out, n.NextSibling)
+	}
 }
 
 /*
