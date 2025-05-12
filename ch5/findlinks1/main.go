@@ -36,6 +36,10 @@ func main() {
 //!-main
 
 // !+visit
+var images []string
+var scripts []string
+var styles []string
+
 // visit appends to links each link found in n and returns the result.
 func visit(links []string, n *html.Node) []string {
 	if n.Type == html.ElementNode && n.Data == "a" {
@@ -44,6 +48,26 @@ func visit(links []string, n *html.Node) []string {
 				links = append(links, a.Val)
 			}
 		}
+	}
+
+	if n.Type == html.ElementNode && n.Data == "img" {
+		for _, a := range n.Attr {
+			if a.Key == "src" {
+				images = append(images, a.Val)
+			}
+		}
+	}
+
+	if n.Type == html.ElementNode && n.Data == "script" {
+		for _, a := range n.Attr {
+			if a.Key == "src" {
+				scripts = append(scripts, a.Val)
+			}
+		}
+	}
+
+	if n.Type == html.ElementNode && n.Data == "style" {
+		styles = append(styles, n.FirstChild.Data)
 	}
 
 	if n.FirstChild != nil {
