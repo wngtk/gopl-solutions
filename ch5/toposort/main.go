@@ -39,6 +39,10 @@ func main() {
 	for i, course := range topoSort(prereqs) {
 		fmt.Printf("%d:\t%s\n", i+1, course)
 	}
+
+	for i, course := range topoSort2(prereqs) {
+		fmt.Printf("%d:\t%s\n", i+1, course)
+	}
 }
 
 func topoSort(m map[string][]string) []string {
@@ -63,6 +67,53 @@ func topoSort(m map[string][]string) []string {
 
 	sort.Strings(keys)
 	visitAll(keys)
+	return order
+}
+
+// 可能还是我把问题想复杂了, 其实直接遍历 key 排序不就完了
+func topoSort2(m map[string][]string) []string {
+	var order []string
+	seen := make(map[string]bool)
+
+	var visitAll2 func(next string)
+
+	visitAll2 = func(next string) {
+		items := m[next]
+		items = append(items, next)
+		for _, item := range items {
+			if !seen[item] {
+				seen[item] = true
+				visitAll2(item)
+				order = append(order, item)
+			}
+		}
+	}
+
+	for key := range m {
+		visitAll2(key)
+	}
+
+	return order
+}
+
+func topoSort3(m map[string][]string) []string {
+	var order []string
+	seen := make(map[string]bool)
+	var visitAll func(items []string)
+
+	visitAll = func(items []string) {
+		for _, item := range items {
+			if !seen[item] {
+				seen[item] = true
+				visitAll(m[item])
+				order = append(order, item)
+			}
+		}
+	}
+
+	for key := range m {
+		visitAll([]string{key})
+	}
 	return order
 }
 
