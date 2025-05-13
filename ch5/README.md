@@ -1,3 +1,13 @@
+Gopl 建议 Go 语言的错误处理的信息写成如下形式
+
+> genesis: crashed: no parachute: G-switch failed: bad relay orientation
+
+在调用 `fmt.Errorf()` 的时候的信息描述状态或者做的事情。
+
+如果让我来设计 Go 语言我绝对不会使用 `:=` 来省略 `var`，因为 `:=` 和 `range` 是强制绑定的。
+
+写 Go 语言的人有必要学好数据结构。
+
 toposort 这个例子可以算是使用 map 来表示一个图。图的节点都是用字符串来表示，演示了使用 DFS 来拓扑排序。
 
 findlinks3 演示了 BFS。因为图的结点是一个字符串，这几个图的例子都是使用 map 来记录是否访问过某一个结点。
