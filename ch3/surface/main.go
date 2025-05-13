@@ -49,7 +49,7 @@ func draw(out io.Writer) {
 	fmt.Fprintln(out, "</svg>")
 }
 
-func corner(i, j int) (float64, float64, bool) {
+func corner(i, j int) (sx, sy float64, valid bool) {
 	// Find point (x,y) at corner of cell (i,j).
 	x := xyrange * (float64(i)/cells - 0.5)
 	y := xyrange * (float64(j)/cells - 0.5)
@@ -58,9 +58,10 @@ func corner(i, j int) (float64, float64, bool) {
 	z := f(x, y)
 
 	// Project (x,y,z) isometrically onto 2-D SVG canvas (sx,sy).
-	sx := width/2 + (x-y)*cos30*xyscale
-	sy := height/2 + (x+y)*sin30*xyscale - z*zscale
-	return sx, sy, isValid(sx, sy)
+	sx = width/2 + (x-y)*cos30*xyscale
+	sy = height/2 + (x+y)*sin30*xyscale - z*zscale
+	valid = isValid(sx, sy)
+	return
 }
 
 func isValid(x, y float64) bool {
