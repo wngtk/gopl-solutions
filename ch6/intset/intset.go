@@ -71,3 +71,44 @@ func (s *IntSet) String() string {
 }
 
 //!-string
+
+func (s *IntSet) Len() int {
+	var len int
+	for _, word := range s.words {
+		if word == 0 {
+			continue
+		}
+		for j := 0; j < 64; j++ {
+			if word&(1<<uint(j)) != 0 {
+				len++
+			}
+		}
+	}
+	return len
+}
+
+func (s *IntSet) Remove(x int) {
+	word, bit := x/64, uint(x%64)
+	if word < len(s.words) {
+		s.words[word] &^= (1 << bit)
+	}
+}
+
+func (s *IntSet) Clear() {
+	for i := range s.words {
+		s.words[i] = 0
+	}
+}
+
+func (s *IntSet) Copy() *IntSet {
+	var ret IntSet
+	ret.UnionWith(s)
+	return &ret
+}
+
+// AddAll allows a list of values to be added
+func (s *IntSet) AddAll(values ...int) {
+	for _, val := range values {
+		s.Add(val)
+	}
+}

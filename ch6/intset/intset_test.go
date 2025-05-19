@@ -43,8 +43,35 @@ func Example_two() {
 	fmt.Println(x)          // "{[4398046511618 0 65536]}"
 	//!-note
 
+	fmt.Println(x.Len()) // "4"
+
+	x.Remove(144)
+	fmt.Println(x.Has(144), x.Len()) // "false 3"
+
 	// Output:
 	// {1 9 42 144}
 	// {1 9 42 144}
 	// {[4398046511618 0 65536]}
+	// 4
+	// false 3
+}
+
+func Example_three() {
+	var x IntSet
+	x.AddAll(9, 6, 0, 4, 8, 5, 9, 0, 2)
+
+	fmt.Printf("%v\n", &x)
+	fmt.Println(x.Len())
+	y := x.Copy()
+	fmt.Println(y.String())
+	y.Clear()
+	fmt.Println(y.String())
+	fmt.Printf("%v\n", &x)
+
+	// Output:
+	// {0 2 4 5 6 8 9}
+	// 7
+	// {0 2 4 5 6 8 9}
+	// {}
+	// {0 2 4 5 6 8 9}
 }
