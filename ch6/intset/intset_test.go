@@ -75,3 +75,18 @@ func Example_three() {
 	// {}
 	// {0 2 4 5 6 8 9}
 }
+
+func Example_four() {
+	var x IntSet
+	x.AddAll(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+	for i, val := range x.Elems() {
+		if i != 0 {
+			fmt.Printf(" ")
+		}
+		fmt.Printf("%d", val)
+	}
+
+	// Output:
+	// 0 1 2 3 4 5 6 7 8 9
+}
