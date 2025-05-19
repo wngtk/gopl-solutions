@@ -127,3 +127,47 @@ func (s *IntSet) Elems() []int {
 	}
 	return ret
 }
+
+func (s *IntSet) IntersectWith(t *IntSet) {
+	for _, val := range s.Elems() {
+		if !t.Has(val) {
+			s.Remove(val)
+		}
+	}
+}
+
+func (s *IntSet) DifferenceWith(t *IntSet) {
+	for _, val := range s.Elems() {
+		if t.Has(val) {
+			s.Remove(val)
+		}
+	}
+}
+
+func (s *IntSet) SymmetricDifference(t *IntSet) {
+	// Iterate over the words of both sets
+	for i := 0; i < len(s.words) || i < len(t.words); i++ {
+		var wordS, wordT uint64
+		if i < len(s.words) {
+			wordS = s.words[i]
+		}
+		if i < len(t.words) {
+			wordT = t.words[i]
+		}
+
+		// Compute the symmetric difference for this word
+		symmetricWord := wordS ^ wordT
+
+		// Update the set
+		if i < len(s.words) {
+			s.words[i] = symmetricWord
+		} else {
+			s.words = append(s.words, symmetricWord)
+		}
+	}
+
+	// Trim any trailing zero words
+	for len(s.words) > 0 && s.words[len(s.words)-1] == 0 {
+		s.words = s.words[:len(s.words)-1]
+	}
+}

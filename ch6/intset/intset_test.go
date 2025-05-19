@@ -90,3 +90,39 @@ func Example_four() {
 	// Output:
 	// 0 1 2 3 4 5 6 7 8 9
 }
+
+func Example_symmetricDifference() {
+	var x, y IntSet
+	x.AddAll(1, 2, 3, 4)
+	y.AddAll(3, 4, 5, 6)
+
+	x.SymmetricDifference(&y)
+	fmt.Println(x.String()) // "{1 2 5 6}"
+
+	// Output:
+	// {1 2 5 6}
+}
+
+func Example_differenceWith() {
+	var x, y IntSet
+	x.AddAll(1, 2, 3, 4)
+	y.AddAll(3, 4, 5, 6)
+
+	x.DifferenceWith(&y)
+	fmt.Println(x.String()) // "{1 2}"
+
+	// Output:
+	// {1 2}
+}
+
+func Example_intersectWith() {
+	var x, y IntSet
+	x.AddAll(1, 2, 3, 4)
+	y.AddAll(3, 4, 5, 6)
+
+	x.IntersectWith(&y)
+	fmt.Println(x.String()) // "{3 4}"
+
+	// Output:
+	// {3 4}
+}
