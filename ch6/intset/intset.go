@@ -13,21 +13,23 @@ import (
 
 //!+intset
 
+const wordlen = 32 << (^uint(0) >> 63)
+
 // An IntSet is a set of small non-negative integers.
 // Its zero value represents the empty set.
 type IntSet struct {
-	words []uint64
+	words []uint
 }
 
 // Has reports whether the set contains the non-negative value x.
 func (s *IntSet) Has(x int) bool {
-	word, bit := x/64, uint(x%64)
+	word, bit := x/wordlen, uint(x%wordlen)
 	return word < len(s.words) && s.words[word]&(1<<bit) != 0
 }
 
 // Add adds the non-negative value x to the set.
 func (s *IntSet) Add(x int) {
-	word, bit := x/64, uint(x%64)
+	word, bit := x/wordlen, uint(x%wordlen)
 	for word >= len(s.words) {
 		s.words = append(s.words, 0)
 	}
@@ -57,12 +59,12 @@ func (s *IntSet) String() string {
 		if word == 0 {
 			continue
 		}
-		for j := 0; j < 64; j++ {
+		for j := 0; j < wordlen; j++ {
 			if word&(1<<uint(j)) != 0 {
 				if buf.Len() > len("{") {
 					buf.WriteByte(' ')
 				}
-				fmt.Fprintf(&buf, "%d", 64*i+j)
+				fmt.Fprintf(&buf, "%d", wordlen*i+j)
 			}
 		}
 	}
@@ -78,7 +80,7 @@ func (s *IntSet) Len() int {
 		if word == 0 {
 			continue
 		}
-		for j := 0; j < 64; j++ {
+		for j := 0; j < wordlen; j++ {
 			if word&(1<<uint(j)) != 0 {
 				len++
 			}
@@ -88,7 +90,7 @@ func (s *IntSet) Len() int {
 }
 
 func (s *IntSet) Remove(x int) {
-	word, bit := x/64, uint(x%64)
+	word, bit := x/wordlen, uint(x%wordlen)
 	if word < len(s.words) {
 		s.words[word] &^= (1 << bit)
 	}
@@ -119,9 +121,9 @@ func (s *IntSet) Elems() []int {
 		if word == 0 {
 			continue
 		}
-		for j := 0; j < 64; j++ {
+		for j := 0; j < wordlen; j++ {
 			if word&(1<<j) != 0 {
-				ret = append(ret, 64*i+j)
+				ret = append(ret, wordlen*i+j)
 			}
 		}
 	}
@@ -147,7 +149,7 @@ func (s *IntSet) DifferenceWith(t *IntSet) {
 func (s *IntSet) SymmetricDifference(t *IntSet) {
 	// Iterate over the words of both sets
 	for i := 0; i < len(s.words) || i < len(t.words); i++ {
-		var wordS, wordT uint64
+		var wordS, wordT uint
 		if i < len(s.words) {
 			wordS = s.words[i]
 		}
