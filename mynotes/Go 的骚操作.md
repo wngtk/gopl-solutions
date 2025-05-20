@@ -10,6 +10,8 @@ Rust 还有一个东西叫 unit 类型，Rust 的 unit 类型是 `()`，这个�
 
 Lua 的 nil 也是一个值，但是 Lua 的 nil 是一个类型，nil 类型只有一个值 nil。
 
+Python 的 None 是一个变量，NoneType 类型的变量。对于动态类型的语言，NoneType 类型的变量可以赋值给任意类型这很合理。静态类型的语言像 Go 就只能赋值给特定的类型 nil。
+
 C++/Python 的运算符都会对应一个函数，C++ 可以重载运算符，Python 有运算符对应的魔术方法可以覆盖。Rust 的运算符都对应了一个 Trait，通过实现 Trait 可以做到运算符重载。而 Go 语言的 `comparable` 似乎只是一个特殊的标记，只是告诉 Go 语言的编译器编译时进行检查。
 
 我的一点小心得：`[]Type`，`map[Type]Type` 可以看作是特殊标识符的结构体，给他们赋值 nil，实际上给他们的某一个成员赋予 NULL。`Type` 是 Go 语言里面表达任意类型用的。
