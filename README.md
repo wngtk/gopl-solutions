@@ -26,4 +26,14 @@ $ $GOPATH/bin/helloworld # 运行程序
 Hello, world!
 ```
 
+TIPS: 上面的 go install 使用的 import path 是绝对路径，也可以是相对路径。
+
+```sh
+gopl-solution$ pwd
+/home/user/gopl-solutions
+gopl-solution$ go install ./ch1/helloworld
+```
+
+注意，这个 `./ch1/helloworld` 前面的 `./` 是必须的，否则 go install 可能会提示 package not in std。
+
 > 云风: 我发现我花了四年时间锤炼自己用 C 语言构建系统的能力，试图找到一个规范，可以更好的编写软件。结果发现只是对 Go 的模仿。缺乏语言层面的支持，只能是一个拙劣的模仿。https://blog.codingnow.com/2010/11/go_prime.html
